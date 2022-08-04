@@ -6,11 +6,13 @@
 /*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 21:25:31 by antoine           #+#    #+#             */
-/*   Updated: 2022/08/03 09:38:09 by antoine          ###   ########.fr       */
+/*   Updated: 2022/08/04 09:40:40 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+
+int const	Fixed::_frac_bits = 8;
 
 Fixed::Fixed(void): _n(0)
 {
@@ -28,15 +30,14 @@ Fixed::Fixed(Fixed const &other)
 Fixed::Fixed(int const n)
 {
 	std::cout << "Integer constructor called." << std::endl;
-	this->_n = n << 8;
+	this->_n = (n << this->_frac_bits);
 	return ;
 }
 
 Fixed::Fixed(float const f)
 {
 	std::cout << "Float constructor called." << std::endl;
-	(void)f;
-	this->_n = 0;
+	this->_n = (int)roundf(f) << this->_frac_bits;
 	return ;
 }
 
@@ -61,24 +62,26 @@ void	Fixed::setRawBits(const int n)
 
 int	Fixed::toInt(void) const
 {
-	std::cout << "toInt member function called." << std::endl;
-	return (this->_n >> 8);
+	// std::cout << "toInt member function called." << std::endl;
+	return ((int)(this->_n >> this->_frac_bits));
 }
 
 float	Fixed::toFloat(void) const
 {
-	std::cout << "toFloat member function called." << std::endl;
-	return (0.0f);
+	float	f;
+
+	f = 1.0f;
+	// std::cout << "toFloat member function called." << std::endl;
+	f = f * (this->_n >> this->_frac_bits);
+	return (f);
 }
 
 Fixed	&Fixed::operator=(Fixed const &other)
 {
 	std::cout << "Copy assignment operator called." << std::endl;
 	this->_n = other.getRawBits();
-	return *this;
+	return (*this);
 }
-
-int const	Fixed::_sep_pos = 8;
 
 std::ostream	&operator<<(std::ostream &o, Fixed &fixed)
 {

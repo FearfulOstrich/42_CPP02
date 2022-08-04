@@ -6,7 +6,7 @@
 /*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 22:48:34 by antoine           #+#    #+#             */
-/*   Updated: 2022/08/03 09:38:41 by antoine          ###   ########.fr       */
+/*   Updated: 2022/08/03 16:09:36 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class Fixed
 
 	private:
 		int					_n;
-		static int const	_sep_pos;
+		static int const	_frac_bits;
 };
 
 std::ostream	&operator<<(std::ostream &o, Fixed const &fixed);
