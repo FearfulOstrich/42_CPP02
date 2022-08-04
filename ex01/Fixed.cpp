@@ -6,7 +6,7 @@
 /*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 21:25:31 by antoine           #+#    #+#             */
-/*   Updated: 2022/08/04 09:40:40 by antoine          ###   ########.fr       */
+/*   Updated: 2022/08/04 13:45:08 by aalleon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Fixed::Fixed(int const n)
 Fixed::Fixed(float const f)
 {
 	std::cout << "Float constructor called." << std::endl;
-	this->_n = (int)roundf(f) << this->_frac_bits;
+	this->_n = (int)roundf(f * (1 << this->_frac_bits));
 	return ;
 }
 
@@ -68,12 +68,8 @@ int	Fixed::toInt(void) const
 
 float	Fixed::toFloat(void) const
 {
-	float	f;
-
-	f = 1.0f;
 	// std::cout << "toFloat member function called." << std::endl;
-	f = f * (this->_n >> this->_frac_bits);
-	return (f);
+	return ((1.0f * this->_n) / (1 << this->_frac_bits));
 }
 
 Fixed	&Fixed::operator=(Fixed const &other)
@@ -83,8 +79,8 @@ Fixed	&Fixed::operator=(Fixed const &other)
 	return (*this);
 }
 
-std::ostream	&operator<<(std::ostream &o, Fixed &fixed)
+std::ostream	&operator<<(std::ostream &os, Fixed const &fixed)
 {
-	o << fixed.toFloat();
-	return o;
+	os << fixed.toFloat();
+	return os;
 }
