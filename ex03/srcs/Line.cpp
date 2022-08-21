@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.cpp                                          :+:      :+:    :+:   */
+/*   Line.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aalleon <aalleon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 17:40:47 by aalleon           #+#    #+#             */
-/*   Updated: 2022/08/21 14:55:18 by antoine          ###   ########.fr       */
+/*   Created: 2022/08/21 14:38:06 by antoine           #+#    #+#             */
+/*   Updated: 2022/08/21 17:01:34 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Point.hpp"
+#include "Line.hpp"
 
 /*==============================================================================
 	Constructors.
 ==============================================================================*/
 
-Point::Point(void): _x(0), _y(0)
+Line::Line(void)
 {
+	_A = Point();
+	_B = Point();
 	return ;
 }
 
-Point::Point(Point const &other)
+Line::Line(Line const &other)
 {
 	*this = other;
 	return ;
 }
 
-Point::Point(Fixed const &x, Fixed const &y): _x(x), _y(y)
+Line::Line(Point const &A, Point const &B): _A(A), _B(B)
 {
 	return ;
 }
@@ -36,7 +38,7 @@ Point::Point(Fixed const &x, Fixed const &y): _x(x), _y(y)
 	Destructor.
 ==============================================================================*/
 
-Point::~Point(void)
+Line::~Line(void)
 {
 	return ;
 }
@@ -45,10 +47,10 @@ Point::~Point(void)
 	Assignment operator.
 ==============================================================================*/
 
-Point	&Point::operator=(Point const &other)
+Line	&Line::operator=(Line const &other)
 {
-	this->set_x(other.get_x());
-	this->set_y(other.get_y());
+	this->set_A(other.get_A());
+	this->set_B(other.get_B());
 	return (*this);
 }
 
@@ -56,28 +58,42 @@ Point	&Point::operator=(Point const &other)
 	Getters.
 ==============================================================================*/
 
-Fixed const	&Point::get_x(void) const
+Point const	&Line::get_A(void) const
 {
-	return (this->_x);
+	return (this->_A);
 }
 
-Fixed const	&Point::get_y(void) const
+Point const	&Line::get_B(void) const
 {
-	return (this->_y);
+	return (this->_B);
 }
 
 /*==============================================================================
 	Setters.
 ==============================================================================*/
 
-void	Point::set_x(Fixed const &x)
+void	Line::set_A(Point const &A)
 {
-	this->_x = x;
+	this->_A = A;
 	return ;
 }
 
-void	Point::set_y(Fixed const &y)
+void	Line::set_B(Point const &B)
 {
-	this->_y = y;
+	this->_B = B;
 	return ;
+}
+
+/*==============================================================================
+	Point distance.
+==============================================================================*/
+
+int	Line::p_dist(Point const P) const
+{
+	Fixed	a, b, c;
+
+	a = Fixed(-1) * (this->_B.get_y() - this->_A.get_y());
+	b = this->_B.get_x() - this->_A.get_x();
+	c = Fixed(-1) * (a * this->_A.get_x() + b * this->_A.get_y());
+	return (a * P.get_x() + b * P.get_y() + c).toInt();
 }

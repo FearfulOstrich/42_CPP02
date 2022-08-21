@@ -16,9 +16,13 @@ FLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 SRCDIR	=	srcs/
 
-SRCFILE	=	main.cpp Fixed.cpp Point.cpp bsp.cpp
+SRCFILE	=	main.cpp Fixed.cpp Point.cpp bsp.cpp Line.cpp Triangle.cpp
 
 SRC		=	$(addprefix $(SRCDIR), $(SRCFILE))
+
+## Includes
+
+INCLDIR	=	includes/
 
 ## Objects
 
@@ -38,7 +42,8 @@ $(NAME)		:	$(OBJ)
 				$(CC) $(OBJ) -o $(NAME)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.cpp
-				$(CC) $(FLAGS) -c $< -o $@
+				mkdir -p $(OBJDIR)
+				$(CC) $(FLAGS) -c $< -o $@ -I $(INCLDIR)
 
 clean		:
 				rm -rf $(OBJ)

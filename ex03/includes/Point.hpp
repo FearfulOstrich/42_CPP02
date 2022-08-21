@@ -6,7 +6,7 @@
 /*   By: aalleon <aalleon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:36:28 by aalleon           #+#    #+#             */
-/*   Updated: 2022/08/05 18:29:50 by aalleon          ###   ########.fr       */
+/*   Updated: 2022/08/21 15:32:38 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class	Point
 		Point(Point const &other);
 		Point(Fixed const &x, Fixed const &y);
 		// Destructors
-		~Point(void)
+		~Point(void);
 
 		//Assignment operator
 		Point	&operator=(Point const	&other);
@@ -37,8 +37,8 @@ class	Point
 		void	set_y(Fixed const &y);
 
 	private:
-		Fixed const	_x;
-		Fixed const	_y;
+		Fixed	_x;
+		Fixed	_y;
 };
 
 #endif
